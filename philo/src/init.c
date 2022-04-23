@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:32:27 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/23 14:19:20 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/04/23 16:23:44 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ t_philo	*init_philo(int i, t_data *data)
 	philo->data = data;
 	philo->t_eat = data->eat_cnt;
 	philo->rfork = i;
-	if (data->num_philo < 2)
-		philo->lfork = i;
-	else
-		philo->lfork = i % philo->data->num_philo - 1;
+	philo->lfork = (i + data->num_philo - 1) % data->num_philo;
 	pthread_mutex_init(&philo->meallock, NULL);
 	return (philo);
 }
