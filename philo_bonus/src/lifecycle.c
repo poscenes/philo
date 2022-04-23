@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:07:21 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/13 16:07:03 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/04/23 14:58:59 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*deathcheck(void *_data)
 			sem_post(data->stop_sim);
 			exit(EXIT_SUCCESS);
 		}
+		usleep(100);
 	}
 	return (NULL);
 }
@@ -93,5 +94,6 @@ void	lifecycle(t_data *data)
 	{
 		eating(data);
 		sleep_think(data);
+		my_usleep(100);
 	}
 }
