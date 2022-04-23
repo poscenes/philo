@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 17:41:43 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/23 14:17:55 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:04:37 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,8 @@ long			get_time(void);
 pthread_mutex_t	*forks_init(int count);
 void			grab_forks(t_philo *philo);
 void			put_forks(t_philo *philo);
-void			free_for_forks(pthread_mutex_t *forks, int count);
 t_data			*init_data(char **av);
-void			free_data(t_data *data);
 t_philo			*init_philo(int i, t_data *data);
-void			free_ph(t_philo *philo);
-void			free_ph_arr(t_philo **phs, int num);
 void			*philosopher(void *philos);
-void			*check_death(void *_philo);
 
 #endif

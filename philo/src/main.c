@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:49:42 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/12 13:07:47 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:17:57 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,47 @@ int	check_numeat(t_data *data)
 	i = -1;
 	sum = 0;
 	while (++i < data->num_philo)
+	{
+		pthread_mutex_lock(&data->phs[i]->meallock);
 		sum += data->phs[i]->t_eat;
+		pthread_mutex_unlock(&data->phs[i]->meallock);
+	}
 	if (sum == 0)
 		return (1);
 	return (0);
 }
 
-void	*check_death(void *_data)
+void	check_death(t_data *data)
 {
-	int		i;
-	t_data	*data;
+	int				i;
+	unsigned long	lastmeal;
 
-	data = (t_data *)_data;
 	while (1)
 	{
 		i = -1;
 		while (++i < data->num_philo)
 		{
-			if (get_time() - data->phs[i]->t_lastmeal >= data->t_to_die)
+			pthread_mutex_lock(&data->phs[i]->meallock);
+			lastmeal = data->phs[i]->t_lastmeal;
+			pthread_mutex_unlock(&data->phs[i]->meallock);
+			if (get_time() - lastmeal >= data->t_to_die)
 			{
 				pthread_mutex_lock(&data->print);
 				printf("%lu %d died\n", get_time() - data->t_start,
 					data->phs[i]->id);
-				return (NULL);
+				return ;
 			}
 		}
 		if (check_numeat(data))
-			return (NULL);
+			return ;
+		usleep(10);
 	}
-	return (NULL);
+	return ;
 }
 
 int	main(int ac, char **av)
 {
 	t_data		*data;
-	pthread_t	death;
 
 	if (ac < 5 || ac > 6)
 		return (0);
@@ -84,9 +90,6 @@ int	main(int ac, char **av)
 	if (!data)
 		return (0);
 	init_threads(data);
-	pthread_create(&death, NULL, check_death, (void *)data);
-	pthread_join(death, NULL);
-	free_ph_arr(data->phs, data->num_philo);
-	free_data(data);
+	check_death(data);
 	return (0);
 }
