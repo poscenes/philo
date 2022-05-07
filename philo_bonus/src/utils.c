@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:42:48 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/23 14:28:14 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:26:55 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,14 @@ void	my_usleep(long long ms)
 	start_time = get_time();
 	while ((get_time() - start_time) < ms)
 		usleep(ms / 10);
+}
+
+void	print_fork(t_data *data)
+{
+	sem_wait(data->print_sem);
+	printf("%lu %d has taken a fork\n", get_time() - data->t_start,
+		data->philo.id);
+	printf("%lu %d has taken a fork\n", get_time() - data->t_start,
+		data->philo.id);
+	sem_post(data->print_sem);
 }

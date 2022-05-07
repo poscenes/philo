@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:07:33 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/13 16:01:10 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:27:19 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void				stop_simulation(t_data *data);
 void				*deathcheck(void *_data);
 void				*eatcheck(void *_data);
 void				lifecycle(t_data *data);
+void				print_fork(t_data *data);
 
 #endif

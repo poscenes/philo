@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 18:10:10 by poscenes          #+#    #+#             */
-/*   Updated: 2022/04/23 14:59:59 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:21:16 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	start_threads(t_data *data)
 		if (data->philos_pid[i] == -1)
 		{
 			while (--i >= 0)
-				kill(data->philos_pid[i], SIGKILL);
+				kill(data->philos_pid[i], SIGINT);
 			return (1);
 		}
 	}
@@ -44,7 +44,7 @@ void	stop_simulation(t_data *data)
 
 	i = -1;
 	while (++i < data->num_philo)
-		kill(data->philos_pid[i], SIGKILL);
+		kill(data->philos_pid[i], SIGINT);
 }
 
 int	main(int ac, char **av)
